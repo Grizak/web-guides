@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+
+    <h2>Add a New Guide</h2>
+    <form action="/admin/add" method="POST">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title" required><br><br>
+
+        <label for="content">Content:</label><br>
+        <textarea id="content" name="content" rows="10" cols="30" required></textarea><br><br>
+
+        <button type="submit">Add Guide</button>
+    </form>
+
+    <h2>Existing Guides</h2>
+    <ul>
+        <% guides.forEach(guide => { %>
+            <li>
+                <%= guide.title %> (<%= guide.name %>)<br>
+                <a href="/admin/edit/<%= guide._id %>">Edit</a> | 
+                <form action="/admin/delete/<%= guide._id %>" method="POST" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        <% }) %>
+    </ul>
+</body>
+</html>

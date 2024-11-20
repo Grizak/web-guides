@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Development Guides</title>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Web Development Guides</h1>
+        <p>Learn web development with our curated guides.</p>
+    </header>
+
+    <main>
+        <h2>Available Guides</h2>
+        <% if (guides.length > 0) { %>
+            <ul>
+                <% guides.forEach(guide => { %>
+                    <li>
+                        <a href="/guides/<%= guide.name %>"><%= guide.title %></a>
+                    </li>
+                <% }) %>
+            </ul>
+        <% } else { %>
+            <p>No guides available yet. Check back soon!</p>
+        <% } %>
+    </main>
+</body>
+</html>
