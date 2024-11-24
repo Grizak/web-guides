@@ -24,7 +24,7 @@ mongoose
 
 // Middleware to check authentication
 const authenticateAdmin = (req, res, next) => {
-  const token = req.cookies.token;
+  const token = req.cookies.token || null;
   if (!token) return res.redirect('/login');
 
   jwt.verify(token, SECRET_KEY, (err, decoded) => {
@@ -117,14 +117,31 @@ app.get('/login', (req, res) => {
   res.render('login'); // Render a simple login form
 });
 
+app.post('/register', async (req, res) => {
+  try {
+    const { username, password } = req.body;
+
+    const newAdmin = new Admin({
+      username,
+      password
+    });
+
+    await newAdmin.save();
+    res.status(200).json({ message: "User registered" })
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Registration Falied" });
+  }
+})
+
 // Handle Admin Login
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
   try {
       const admin = await Admin.findOne({ username });
-      if (!admin || !(await admin.comparePassword(password))) {
-          return res.status(401).send('Invalid credentials');
-      }
+      if (!admin) return res.status(401).send("Invalid username");
+
+      if (!(await admin.comparePassword(password))) return res.status(401).send('Invalid password');
 
       const token = jwt.sign({ id: admin._id, username: admin.username }, SECRET_KEY, { expiresIn: '1h' });
       res.cookie('token', token, { httpOnly: true });
