@@ -1,0 +1,60 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  margin: 10;
+  padding: 0;
+  background-color: #f4f4f9;
+  color: #333;
+}
+a {
+  text-decoration: none;
+  color: #3498db;
+}
+a:hover {
+  text-decoration: underline;
+}
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 20px 10px;
+  text-align: center;
+}
+header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+main {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.guide-header {
+  margin-bottom: 20px;
+}
+.guide-header h2 {
+  margin: 0;
+  font-size: 2rem;
+}
+.guide-header p {
+  margin: 5px 0 0;
+  color: #777;
+}
+.guide-content {
+  margin-top: 20px;
+}
+.guide-content h3 {
+  margin-top: 20px;
+  color: #3498db;
+}
+.guide-content p {
+  margin: 10px 0;
+}
+footer {
+  margin-top: 30px;
+  text-align: center;
+  color: #777;
+}

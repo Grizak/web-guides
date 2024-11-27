@@ -1,0 +1,60 @@
+<form method="POST" action="/admin/edit/<%= guide._id %>">
+  <label for="name">Name:</label>
+  <input type="text" name="name" value="<%= guide.name %>" required>
+
+  <label for="title">Title:</label>
+  <input type="text" name="title" value="<%= guide.title %>" required>
+
+  <label for="category">Category:</label>
+  <select name="category" required>
+    <% categories.forEach(category => { %>
+      <option value="<%= category._id %>" <%= guide.category.equals(category._id) ? 'selected' : '' %>>
+        <%= category.name %>
+      </option>
+    <% }); %>
+  </select>
+
+  <h3>Sections</h3>
+  <div id="sections">
+    <% guide.sections.forEach((section, index) => { %>
+      <div class="section">
+        <label for="sections[<%= index %>].title">Section Title:</label>
+        <input type="text" name="sections[<%= index %>].title" value="<%= section.title %>" required>
+        
+        <label for="sections[<%= index %>].content">Section Content (HTML):</label>
+        <textarea name="sections[<%= index %>].content" rows="6" required><%= section.content %></textarea>
+        
+        <input type="hidden" name="sections[<%= index %>].id" value="<%= section.id %>">
+        <button type="button" onclick="removeSection(this)">Remove Section</button>
+      </div>
+    <% }); %>
+  </div>
+  
+  <button type="button" onclick="addSection()">Add Section</button>
+  <button type="submit">Save</button>
+</form>
+
+<script>
+  function addSection() {
+    const sections = document.getElementById('sections');
+    const index = sections.children.length;
+
+    const section = document.createElement('div');
+    section.classList.add('section');
+    section.innerHTML = `
+      <label for="sections[${index}].title">Section Title:</label>
+      <input type="text" name="sections[${index}].title" required>
+      
+      <label for="sections[${index}].content">Section Content (HTML):</label>
+      <textarea name="sections[${index}].content" rows="6" required></textarea>
+      
+      <input type="hidden" name="sections[${index}].id" value="section-${Date.now()}">
+      <button type="button" onclick="removeSection(this)">Remove Section</button>
+    `;
+    sections.appendChild(section);
+  }
+
+  function removeSection(button) {
+    button.parentElement.remove();
+  }
+</script>

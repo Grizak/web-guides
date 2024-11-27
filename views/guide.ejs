@@ -4,10 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= guide.title %></title>
+    <link rel="stylesheet" href="/css/guide.css">
 </head>
 <body>
     <h1><%= guide.title %></h1>
-    <p><%= guide.content %></p>
+    <h3>By: <%= guide.author %></h3>
+    <ul>
+        <% guide.sections.forEach((section, index) => { %>
+          <li><a href="#section-<%= index %>"><%= section.title %></a></li>
+        <% }) %>
+      </ul>
+      <% guide.sections.forEach((section, index) => { %>
+        <h2 id="section-<%= index %>"><%= section.title %></h2>
+        <%- section.content %>
+      <% }) %>
+      
     <a href="/">Return back</a>
 </body>
 </html>
