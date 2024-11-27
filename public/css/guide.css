@@ -58,3 +58,38 @@ footer {
   text-align: center;
   color: #777;
 }
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 1.25rem;
+  }
+  .guide-header h2 {
+    font-size: 1.75rem;
+  }
+  main {
+    padding: 15px;
+  }
+  .guide-content h3 {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.1rem;
+  }
+  main {
+    margin: 10px;
+    padding: 10px;
+  }
+  .guide-header h2 {
+    font-size: 1.5rem;
+  }
+  .guide-content h3 {
+    font-size: 1.1rem;
+  }
+  footer {
+    font-size: 0.9rem;
+  }
+}
