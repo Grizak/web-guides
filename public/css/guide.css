@@ -59,6 +59,24 @@ footer {
   color: #777;
 }
 
+.btn {
+    display: inline-block;          /* Makes the anchor behave like a block-level element for padding */
+    padding: 10px 20px;             /* Adds padding for the btn */
+    color: white;                   /* Text color */
+    background-color: #007BFF;      /* Button background color */
+    text-decoration: none;          /* Removes the underline */
+    border: none;                   /* Removes default border */
+    border-radius: 5px;             /* Adds rounded corners */
+    font-size: 16px;                /* Sets font size */
+    text-align: center;             /* Centers text */
+    cursor: pointer;                /* Changes cursor to pointer */
+}
+
+.btn:hover {
+    background-color: #0056b3;      /* Darkens background on hover */
+}
+
+
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
   header h1 {
