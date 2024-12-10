@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1><%= guide.title %></h1>
-    <h3>By: <%= guide.author %></h3>
+    <h3>By: <%= guide.author %>, <%= new Date(<%= guide.createdAt).toLocateString() %></h3>
     <ul>
         <% guide.sections.forEach((section, index) => { %>
           <li><a href="#section-<%= index %>"><%= section.title %></a></li>
