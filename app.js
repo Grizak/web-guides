@@ -204,6 +204,10 @@ app.get('/login', (req, res) => {
   res.render('login');
 });
 
+app.get('/register', (req, res) => {
+  res.render('register');
+});
+
 app.post('/register', async (req, res) => {
   try {
     const { name, password } = req.body;
@@ -219,7 +223,7 @@ app.post('/register', async (req, res) => {
     console.error(err);
     res.status(500).json({ message: "Registration Falied" });
   }
-})
+});
 
 // Handle Admin Login
 app.post('/login', async (req, res) => {
