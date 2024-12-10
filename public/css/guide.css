@@ -1,6 +1,6 @@
 /* Make the scrolling behavior smooth */
 html {
-  scrolling-behaviour: smoooth;
+  scroll-behaviour: smoooth;
 }
 
 /* General Styles */
