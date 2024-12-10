@@ -218,7 +218,7 @@ app.post('/register', async (req, res) => {
     });
 
     await newAdmin.save();
-    res.status(200).json({ message: "User registered" })
+    res.status(200).redirect('/login');
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Registration Falied" });
