@@ -1,3 +1,8 @@
+/* Make the scrolling behavior smooth */
+html {
+  scrolling-behaviour: smoooth;
+}
+
 /* General Styles */
 body {
   font-family: Arial, sans-serif;
