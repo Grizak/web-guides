@@ -14,7 +14,7 @@ const Category = require('./models/Category');
 const SECRET_KEY = process.env.JWT_SECRET;
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -25,6 +25,18 @@ mongoose
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('MongoDB connection error:', err));
 
+/*
+app.use(async(req, res, next) => {
+  try {
+    await Admin.deleteMany({});
+  } catch (err) {
+    console.error(err);
+    return next(err);
+  }
+
+  next();
+});
+*/
 
 app.use((req, res, next) => {
     try {
@@ -38,6 +50,7 @@ app.use((req, res, next) => {
         console.error('Error verifying token:', err.message);
         res.locals.admin = null; // Invalid token
     }
+
     next();
 });
 
@@ -209,30 +222,40 @@ app.get('/register', (req, res) => {
 
 app.post('/register', async (req, res) => {
   try {
-    console.log(req.body);
-    
     const { name, password } = req.body;
+    console.log('Raw input:', req.body); // Log the raw input
 
-    // Ensure name and password are provided
     if (!name || !password) {
       return res.status(400).json({ message: "Name and password are required" });
     }
 
+    const trimmedName = name.trim();
+    console.log('Trimmed name:', trimmedName); // Log the trimmed name
+
+    // Check for existing admin
+    const existingAdmin = await Admin.findOne({ name: trimmedName });
+    console.log('Existing admin found:', existingAdmin); // Log the existing admin (if any)
+
+    if (existingAdmin) {
+      return res.status(400).json({ message: "Name already exists", existingAdmin });
+    }
+
     const newAdmin = new Admin({
-      name,
+      name: trimmedName,
       password
     });
+    console.log('New admin to save:', newAdmin); // Log the new admin
 
     await newAdmin.save();
     res.status(200).redirect('/login');
   } catch (err) {
+    console.error('Error during registration:', err);
 
     if (err.code === 11000) {
       return res.status(400).json({ message: "Name already exists" });
     }
-    
-    console.error(err);
-    res.status(500).json({ message: "Registration Falied" });
+
+    res.status(500).json({ message: "Registration Failed" });
   }
 });
 
