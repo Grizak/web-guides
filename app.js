@@ -209,6 +209,8 @@ app.get('/register', (req, res) => {
 
 app.post('/register', async (req, res) => {
   try {
+    console.log(req.body);
+    
     const { name, password } = req.body;
 
     // Ensure name and password are provided
