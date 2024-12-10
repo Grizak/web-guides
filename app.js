@@ -212,6 +212,11 @@ app.post('/register', async (req, res) => {
   try {
     const { name, password } = req.body;
 
+    // Ensure name and password are provided
+    if (!name || !password) {
+      return res.status(400).json({ message: "Name and password are required" });
+    }
+
     const newAdmin = new Admin({
       name,
       password
@@ -220,6 +225,11 @@ app.post('/register', async (req, res) => {
     await newAdmin.save();
     res.status(200).redirect('/login');
   } catch (err) {
+
+    if (err.code === 11000) {
+      return res.status(400).json({ message: "Name already exists" });
+    }
+    
     console.error(err);
     res.status(500).json({ message: "Registration Falied" });
   }
