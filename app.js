@@ -153,6 +153,8 @@ app.get('/admin/edit/:id', authenticateAdmin, async (req, res) => {
 app.post('/admin/edit/:id', authenticateAdmin, async (req, res) => {
   const { name, title, category } = req.body;
 
+  console.log(req.body);
+
   try {
       // Parse sections
       const sections = Object.keys(req.body)
